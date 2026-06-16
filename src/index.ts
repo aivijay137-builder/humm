@@ -19,3 +19,6 @@ export * from './engagement/outcome-service';
 export * from './safety/checkin-red-flag';
 export * from './safety/checkin-summariser';
 export * from './safety/escalation-router';
+export * from './coordinator/attention-queue';
+export * from './coordinator/member-timeline';
+export * from './coordinator/inline-actions';
