@@ -12,3 +12,7 @@ export * from './plan-assembly/assembler';
 export * from './review/review-service';
 export * from './review/sla';
 export * from './review/review-queue';
+export * from './engagement/action-service';
+export * from './engagement/nudge-service';
+export * from './engagement/checkin-service';
+export * from './engagement/outcome-service';
