@@ -15,7 +15,7 @@ function severityToNumber(s: SymptomSeverity | null): number {
   if (s === null) return 0;
   if (s === 'mild') return 1;
   if (s === 'moderate') return 2;
-  return 3; // marked
+  return 3;
 }
 
 export function checkCheckInRedFlags(input: CheckInRedFlagInput): CheckInRedFlagResult {
@@ -23,7 +23,6 @@ export function checkCheckInRedFlags(input: CheckInRedFlagInput): CheckInRedFlag
   const { checkIn, member_id, previousCheckIn } = input;
   const now = new Date();
 
-  // Rule 1: Marked severity -> high escalation
   if (checkIn.top_symptom_severity === 'marked') {
     escalations.push({
       id: randomUUID(),
@@ -36,7 +35,6 @@ export function checkCheckInRedFlags(input: CheckInRedFlagInput): CheckInRedFlag
     });
   }
 
-  // Rule 2: Low mood (avg <= 2.0) -> medium escalation
   const avgMood = (checkIn.mood[0] + checkIn.mood[1]) / 2;
   if (avgMood <= 2.0) {
     escalations.push({
@@ -50,7 +48,6 @@ export function checkCheckInRedFlags(input: CheckInRedFlagInput): CheckInRedFlag
     });
   }
 
-  // Rule 3: Sharp symptom change (>= 2 levels) -> medium escalation
   if (previousCheckIn !== null) {
     const prevSev = severityToNumber(previousCheckIn.top_symptom_severity);
     const currSev = severityToNumber(checkIn.top_symptom_severity);
