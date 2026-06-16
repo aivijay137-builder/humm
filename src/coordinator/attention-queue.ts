@@ -4,7 +4,7 @@ export type AttentionCategory = 'escalation' | 'lapse' | 'milestone' | 'plan_due
 
 export interface AttentionQueueInput {
   readonly member_id: MemberId;
-  readonly openEscalations: readonly EscalationEvent[];
+  readonly openEscalations: readonly EscalationEvent[]; // caller pre-filters to status='open'
   readonly checkIns: readonly CheckIn[];
   readonly carePlan: CarePlan | null;
   readonly currentWeek: number;
@@ -83,8 +83,8 @@ export function buildAttentionQueue(
       return aTs - bTs;
     }
     if (a.category === 'plan_due' && b.category === 'plan_due') {
-      const aTs = a.carePlan?.updated_at.getTime() ?? 0;
-      const bTs = b.carePlan?.updated_at.getTime() ?? 0;
+      const aTs = a.carePlan!.updated_at.getTime();
+      const bTs = b.carePlan!.updated_at.getTime();
       return aTs - bTs;
     }
     return 0;

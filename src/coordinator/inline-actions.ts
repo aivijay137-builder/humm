@@ -23,6 +23,7 @@ export function sendMessage(member_id: MemberId): Notification {
   };
 }
 
+// resolved is terminal from any status — coordinator may skip the ack step when handling inline
 export function markHandled(escalation: EscalationEvent): EscalationEvent {
   return {
     ...escalation,
