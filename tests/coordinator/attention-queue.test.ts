@@ -220,4 +220,30 @@ describe('buildAttentionQueue', () => {
     ]);
     expect(entries[0]!.lastCheckIn?.week).toBe(3);
   });
+
+  it('within plan_due tier, oldest carePlan.updated_at surfaces first', () => {
+    const olderTime = new Date('2026-06-01T08:00:00Z');
+    const newerTime = new Date('2026-06-01T12:00:00Z');
+    const mOld = asMemberId('m-plan-old');
+    const mNew = asMemberId('m-plan-new');
+    const makeCarePlanAt = (t: Date): CarePlan => ({
+      id: asCarePlanId(randomUUID()),
+      member_id: mOld,
+      version: 1,
+      status: 'pending_review' as CarePlanStatus,
+      approver_id: null,
+      approved_at: null,
+      rejection_reason: null,
+      phase: 1,
+      recommendations: [],
+      created_at: t,
+      updated_at: t,
+    });
+    const entries = buildAttentionQueue([
+      baseInput(mNew, { carePlan: makeCarePlanAt(newerTime), checkIns: [makeCheckIn(3)] }),
+      baseInput(mOld, { carePlan: makeCarePlanAt(olderTime), checkIns: [makeCheckIn(3)] }),
+    ]);
+    expect(entries[0]!.member_id).toBe(mOld);
+    expect(entries[1]!.member_id).toBe(mNew);
+  });
 });

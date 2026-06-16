@@ -44,9 +44,8 @@ function isLapsed(currentWeek: number, lastCheckIn: CheckIn | null): boolean {
   return currentWeek > lastCheckIn.week + 1;
 }
 
-function categorize(input: AttentionQueueInput): AttentionCategory | null {
+function categorize(input: AttentionQueueInput, lastCheckIn: CheckIn | null): AttentionCategory | null {
   if (input.openEscalations.length > 0) return 'escalation';
-  const lastCheckIn = getLastCheckIn(input.checkIns);
   if (isLapsed(input.currentWeek, lastCheckIn)) return 'lapse';
   if (input.milestones.length > 0) return 'milestone';
   if (
@@ -62,7 +61,8 @@ export function buildAttentionQueue(
   const entries: AttentionQueueEntry[] = [];
 
   for (const member of members) {
-    const category = categorize(member);
+    const lastCheckIn = getLastCheckIn(member.checkIns);
+    const category = categorize(member, lastCheckIn);
     if (category === null) continue;
 
     entries.push({
@@ -70,7 +70,7 @@ export function buildAttentionQueue(
       category,
       priority: categoryPriority(category),
       openEscalation: getOldestEscalation(member.openEscalations),
-      lastCheckIn: getLastCheckIn(member.checkIns),
+      lastCheckIn,
       carePlan: member.carePlan,
     });
   }
@@ -78,8 +78,8 @@ export function buildAttentionQueue(
   return entries.sort((a, b) => {
     if (a.priority !== b.priority) return a.priority - b.priority;
     if (a.category === 'escalation' && b.category === 'escalation') {
-      const aTs = a.openEscalation?.created_at.getTime() ?? 0;
-      const bTs = b.openEscalation?.created_at.getTime() ?? 0;
+      const aTs = a.openEscalation!.created_at.getTime();
+      const bTs = b.openEscalation!.created_at.getTime();
       return aTs - bTs;
     }
     if (a.category === 'plan_due' && b.category === 'plan_due') {
