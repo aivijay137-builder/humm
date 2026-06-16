@@ -112,4 +112,19 @@ describe('summariseCheckIn', () => {
     const summary = summariseCheckIn(makeCheckIn(), []);
     expect(summary.generated_at).toBeInstanceOf(Date);
   });
+
+  it('severity_level=low when only a low-severity escalation is present', () => {
+    const lowEscalation: EscalationEvent = {
+      id: randomUUID(),
+      member_id: memberId,
+      trigger: 'low concern',
+      severity: 'low',
+      status: 'open',
+      created_at: new Date(),
+      acknowledged_at: null,
+    };
+    const summary = summariseCheckIn(makeCheckIn(), [lowEscalation]);
+    expect(summary.severity_level).toBe('low');
+    expect(summary.has_escalation).toBe(true);
+  });
 });

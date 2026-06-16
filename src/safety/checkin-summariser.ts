@@ -18,6 +18,7 @@ export function summariseCheckIn(
 ): CheckInSummary {
   const flags: string[] = [];
 
+  // mild severity is subclinical — no flag warranted
   if (checkIn.top_symptom_severity === 'marked') {
     flags.push('marked_symptom');
   } else if (checkIn.top_symptom_severity === 'moderate') {
@@ -36,7 +37,7 @@ export function summariseCheckIn(
     severity_level = 'high';
   } else if (escalations.some(e => e.severity === 'medium')) {
     severity_level = 'medium';
-  } else if (flags.length > 0) {
+  } else if (escalations.length > 0 || flags.length > 0) {
     severity_level = 'low';
   }
 
@@ -45,7 +46,7 @@ export function summariseCheckIn(
     member_id: checkIn.member_id,
     week: checkIn.week,
     severity_level,
-    flags,
+    flags: [...flags],
     has_escalation,
     generated_at: new Date(),
   };
