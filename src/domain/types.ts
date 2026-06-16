@@ -7,6 +7,7 @@ export type ConditionProfileId = string & { readonly _brand: 'ConditionProfileId
 export function asMemberId(s: string): MemberId { return s as MemberId; }
 export function asCarePlanId(s: string): CarePlanId { return s as CarePlanId; }
 export function asRecommendationId(s: string): RecommendationId { return s as RecommendationId; }
+export function asConditionProfileId(s: string): ConditionProfileId { return s as ConditionProfileId; }
 
 // ─── Evidence (0.4 trust spine) ───────────────────────────────────────────────
 export type EvidenceLevel = 'guideline' | 'good' | 'referral' | 'safety';
