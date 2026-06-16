@@ -1,0 +1,199 @@
+{
+  "_meta": {
+    "name": "Her Health Hub — PCOS ModuleLibrary (seed v0)",
+    "status": "ILLUSTRATIVE — NOT clinically validated. Do not use with real patients until reviewed_by + validated are set by a clinician.",
+    "source_basis": "Modelled on the 2023 International Evidence-Based Guideline for the Assessment and Management of PCOS (Monash / ASRM / ESHRE).",
+    "extracted_from": "her-health-hub-prototype.jsx (MODULES array)",
+    "evidence_levels": ["guideline", "good", "referral", "safety"],
+    "kinds": ["self", "referral", "safety"],
+    "selection_semantics": "Include a module if always=true, OR if ANY trigger in include_when matches the member's intake (symptoms[], primary_goal, conditions[]). The rules engine evaluates include_when; it never invents modules.",
+    "next_step": "A panel clinician validates + expands this library, then sets reviewed_by, last_reviewed, validated=true per module."
+  },
+  "modules": [
+    {
+      "id": "understand", "phase": 1, "kind": "self", "icon": "book-open",
+      "title": "Understand your PCOS",
+      "action": "Read a 3-minute primer on what PCOS is — and why lifestyle helps, even without weight change.",
+      "cadence": "Once this week",
+      "goals_served": ["all"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "Patient education and shared decision-making improve PCOS care.",
+        "rationale": "The guideline strongly recommends high-quality patient education and shared decision-making. Understanding the condition is the foundation everything else builds on.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "track", "phase": 1, "kind": "self", "icon": "clipboard-list",
+      "title": "Track your cycle & top symptom",
+      "action": "Log your period days and your most bothersome symptom — 30 seconds a day for a week.",
+      "cadence": "Daily · 30 sec",
+      "goals_served": ["cycle", "fertility", "all"], "always": true, "this_week": true,
+      "evidence": {
+        "claim": "Self-monitoring supports personalised, shared-decision care.",
+        "rationale": "Tracking turns vague symptoms into a pattern your clinician can act on, and it's the input your plan adapts to each week.",
+        "level": "good",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "move", "phase": 1, "kind": "self", "icon": "footprints",
+      "title": "Build gentle movement",
+      "action": "Start with a 20–30 min brisk walk most days, building toward 150–300 min a week.",
+      "cadence": "5×/week",
+      "goals_served": ["all", "metabolic"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "Regular aerobic activity improves metabolic health in PCOS.",
+        "rationale": "Guideline activity targets (150–300 min/week moderate, or 75–150 vigorous) improve metabolic health and wellbeing — with benefits even without weight loss.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "sedentary", "phase": 1, "kind": "self", "icon": "activity",
+      "title": "Break up sitting",
+      "action": "Stand or move for a couple of minutes each hour you're sitting.",
+      "cadence": "Daily",
+      "goals_served": ["all"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "Reducing sedentary time provides health benefits.",
+        "rationale": "Replacing sedentary time with activity of any intensity — even light — provides health benefits per the guideline.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "sleep", "phase": 1, "kind": "self", "icon": "moon",
+      "title": "Steady your sleep",
+      "action": "Aim for consistent sleep and wake times. Note loud snoring or daytime tiredness to raise at your next consult.",
+      "cadence": "Daily",
+      "goals_served": ["all", "mood"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "Sleep problems are more common in PCOS and warrant attention.",
+        "rationale": "The guideline recognises sleep problems (including sleep apnoea) as more common in PCOS, so steady sleep and screening for issues are part of core care.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "wellbeing", "phase": 1, "kind": "self", "icon": "sparkles",
+      "title": "Protect your emotional wellbeing",
+      "action": "Try one short stress-reset a day — a 5-minute breathing or wind-down practice.",
+      "cadence": "Daily",
+      "goals_served": ["all", "mood"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "Emotional wellbeing is core to PCOS care.",
+        "rationale": "Anxiety and low mood are very common in PCOS. The guideline makes emotional wellbeing and quality of life core to care, not an afterthought.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "mood", "phase": 1, "kind": "self", "icon": "brain",
+      "title": "Quick mood check-ins",
+      "action": "Answer two short mood questions in your weekly check-in, so we can flag early if you'd benefit from more support.",
+      "cadence": "Weekly",
+      "goals_served": ["all", "mood"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "Routine screening for anxiety and depression is recommended in PCOS.",
+        "rationale": "The guideline recommends routinely screening for anxiety and depression in PCOS. These two questions are how your plan knows when to bring in a human.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "eating", "phase": 2, "kind": "self", "icon": "salad",
+      "title": "A sustainable eating pattern",
+      "action": "Aim for regular, balanced meals you can actually keep up. There's no single \u201CPCOS diet\u201D you have to follow.",
+      "cadence": "Ongoing",
+      "goals_served": ["all", "metabolic"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "No single diet is superior in PCOS; sustainability matters most.",
+        "rationale": "The guideline finds no one diet superior. A pattern you can sustain matters more than any specific regimen — and we frame this around health, never restriction.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "strength", "phase": 2, "kind": "self", "icon": "heart-pulse",
+      "title": "Add light strength work",
+      "action": "Two short muscle-strengthening sessions a week — bodyweight counts.",
+      "cadence": "2×/week",
+      "goals_served": ["all", "metabolic"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "Strength activity supports an active, metabolically beneficial lifestyle.",
+        "rationale": "Strength activity supports the metabolic benefits of an active lifestyle and is consistent with population physical-activity guidance the PCOS guideline aligns to.",
+        "level": "guideline",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "skin", "phase": 2, "kind": "referral", "icon": "sparkles",
+      "title": "Skin & hair — what actually helps",
+      "action": "Lifestyle helps slowly. For faster options, discuss medical treatments with your clinician — we won't prescribe in the app.",
+      "cadence": "Raise at next consult",
+      "goals_served": ["skin"], "always": false, "this_week": false,
+      "include_when": { "symptoms": ["skinhair"], "primary_goal": ["skin"] },
+      "evidence": {
+        "claim": "Pharmacological options for skin/hair features are clinician-led.",
+        "rationale": "The guideline keeps pharmacological options for skin/hair features clinician-led. The app's job is to route you, not to medicate.",
+        "level": "referral",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "metabolic", "phase": 2, "kind": "referral", "icon": "flask-conical",
+      "title": "Check your metabolic health",
+      "action": "Ask your clinician about screening your blood sugar and cholesterol.",
+      "cadence": "Raise at next consult",
+      "goals_served": ["metabolic"], "always": false, "this_week": false,
+      "include_when": { "symptoms": ["weight"], "primary_goal": ["metabolic"], "conditions": ["Insulin resistance", "Type-2 diabetes"] },
+      "evidence": {
+        "claim": "Metabolic risk and insulin resistance are recognised features; screening is clinician-led.",
+        "rationale": "Insulin resistance and metabolic risk are recognised features of PCOS. Screening decisions sit with your clinician — we make sure they're on the radar.",
+        "level": "referral",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "fertility", "phase": 1, "kind": "referral", "icon": "stethoscope",
+      "title": "Planning for pregnancy",
+      "action": "Bring your goal and timeline to a clinician — they'll guide safe, evidence-based options. Keep tracking your cycles meanwhile.",
+      "cadence": "Book a consult",
+      "goals_served": ["fertility"], "always": false, "this_week": false,
+      "include_when": { "primary_goal": ["fertility"] },
+      "evidence": {
+        "claim": "Fertility management should be safe, evidence-based, and clinician-led.",
+        "rationale": "The guideline emphasises safer, cheaper, clinician-led fertility management. The plan prepares you for that conversation rather than replacing it.",
+        "level": "referral",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    },
+    {
+      "id": "safety", "phase": 1, "kind": "safety", "icon": "shield-check",
+      "title": "When to reach out sooner",
+      "action": "Message your care companion if your symptoms change sharply or you feel unwell — don't wait for your next check-in.",
+      "cadence": "As needed",
+      "goals_served": ["all"], "always": true, "this_week": false,
+      "evidence": {
+        "claim": "A clear escalation path is basic clinical safety.",
+        "rationale": "A clear escalation path is basic clinical safety. Your plan should always tell you when not to wait.",
+        "level": "safety",
+        "source": "2023 Intl. Evidence-Based PCOS Guideline",
+        "confidence": "illustrative", "reviewed_by": null, "last_reviewed": null, "validated": false
+      }
+    }
+  ]
+}
