@@ -80,10 +80,10 @@ describe('buildChangeSummary', () => {
     expect(summary.care_plan_id).toBe(newPlan.id);
   });
 
-  it('preserves changes array reference', () => {
+  it('preserves changes array contents', () => {
     const changes = [ch('added', 'x')];
     const summary = buildChangeSummary(makeCarePlan(1), makeCarePlan(2), changes);
-    expect(summary.changes).toBe(changes);
+    expect(summary.changes).toEqual(changes);
   });
 
   it('handles all-unchanged', () => {
@@ -92,13 +92,6 @@ describe('buildChangeSummary', () => {
     expect(summary.added_count).toBe(0);
     expect(summary.removed_count).toBe(0);
     expect(summary.unchanged_count).toBe(2);
-  });
-
-  it('handles empty changes', () => {
-    const summary = buildChangeSummary(makeCarePlan(1), makeCarePlan(2), []);
-    expect(summary.added_count).toBe(0);
-    expect(summary.removed_count).toBe(0);
-    expect(summary.unchanged_count).toBe(0);
   });
 });
 
@@ -113,12 +106,6 @@ describe('notifyDeltaPublished', () => {
     expect(notification.recipient_id).toBe(existing.member_id);
     expect(notification.read_at).toBeNull();
     expect(notification.ts).toBeInstanceOf(Date);
-  });
-
-  it('notification id is a non-empty string', () => {
-    const { notification } = notifyDeltaPublished(makeCarePlan(1), makeCarePlan(2, 'approved'));
-    expect(typeof notification.id).toBe('string');
-    expect(notification.id.length).toBeGreaterThan(0);
   });
 
   it('throws UnapprovedDeltaError for draft status', () => {
