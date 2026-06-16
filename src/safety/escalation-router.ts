@@ -52,7 +52,7 @@ export function routeEscalation(input: EscalationRoutingInput): EscalationRoutin
     });
   }
 
-  return { notifications: [...notifications] };
+  return { notifications };
 }
 
 export function acknowledgeEscalation(

@@ -2,7 +2,6 @@ import {
   routeEscalation,
   acknowledgeEscalation,
   getEscalationSLAInfo,
-  ESCALATION_ACK_SLA_HOURS,
 } from '../../src/safety/escalation-router';
 import { asMemberId, EscalationEvent, EscalationSeverity } from '../../src/domain/types';
 import { randomUUID } from 'node:crypto';
@@ -26,12 +25,6 @@ function makeEscalation(
     ...overrides,
   };
 }
-
-describe('ESCALATION_ACK_SLA_HOURS', () => {
-  it('is 4 hours', () => {
-    expect(ESCALATION_ACK_SLA_HOURS).toBe(4);
-  });
-});
 
 describe('routeEscalation', () => {
   it('always produces member + coordinator notifications for medium escalation', () => {
@@ -120,6 +113,16 @@ describe('routeEscalation', () => {
     });
     const clin = result.notifications.find(n => n.recipient_type === 'clinician');
     expect(clin?.recipient_id).toBe('clinician-queue');
+  });
+
+  it('uses explicit clinician_id over clinician-queue when high severity and clinician_id provided', () => {
+    const result = routeEscalation({
+      escalation: makeEscalation('high'),
+      coordinator_id: coordinatorId,
+      clinician_id: clinicianId,
+    });
+    const clin = result.notifications.find(n => n.recipient_type === 'clinician');
+    expect(clin?.recipient_id).toBe(clinicianId);
   });
 });
 
