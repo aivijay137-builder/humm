@@ -35,6 +35,7 @@ export function evaluateReplanningTrigger(
 ): ReplanningTrigger | null {
   const { currentWeek, milestones, lastCheckIn, existingTriggers, care_plan_id } = input;
 
+  // one trigger per evaluation — caller re-evaluates after persisting each result
   if (currentWeek >= 30 && !alreadyFired(existingTriggers, care_plan_id, 'phase_30')) {
     return make(input, 'phase_30');
   }

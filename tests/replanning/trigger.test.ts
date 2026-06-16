@@ -77,16 +77,18 @@ describe('evaluateReplanningTrigger', () => {
     expect(result?.reason).toBe('phase_90');
   });
 
-  it('returns null when all phase triggers already fired at week 90', () => {
-    const currentCi: CheckIn = { ...recentCi, week: 89 };
+  it('returns null when all triggers already fired', () => {
     const result = evaluateReplanningTrigger({
       ...base,
       currentWeek: 90,
-      lastCheckIn: currentCi,
+      milestones: [milestone],
+      lastCheckIn: recentCi,
       existingTriggers: [
         makeFiredTrigger('phase_30'),
         makeFiredTrigger('phase_60'),
         makeFiredTrigger('phase_90'),
+        makeFiredTrigger('milestone'),
+        makeFiredTrigger('lapse'),
       ],
     });
     expect(result).toBeNull();
@@ -147,10 +149,21 @@ describe('evaluateReplanningTrigger', () => {
     expect(evaluateReplanningTrigger({ ...base, currentWeek: 1, lastCheckIn: null })).toBeNull();
   });
 
+  it('returns lapse when milestone already fired', () => {
+    const result = evaluateReplanningTrigger({
+      ...base,
+      currentWeek: 5,
+      milestones: [milestone],
+      existingTriggers: [makeFiredTrigger('milestone')],
+    });
+    expect(result?.reason).toBe('lapse');
+  });
+
   it('populates trigger fields correctly', () => {
     const result = evaluateReplanningTrigger({ ...base, currentWeek: 30 });
     expect(result).toMatchObject({ care_plan_id: cpId, member_id: memberId, reason: 'phase_30' });
-    expect(result!.triggered_at).toBeInstanceOf(Date);
+    expect(result).not.toBeNull();
+    expect(result?.triggered_at).toBeInstanceOf(Date);
   });
 
   it('does not cross-pollute triggers from a different care_plan_id', () => {
