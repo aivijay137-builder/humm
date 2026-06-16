@@ -161,7 +161,8 @@ export type NotificationType =
   | 'lapse_nudge'
   | 'milestone'
   | 'escalation_created'
-  | 'escalation_ack';
+  | 'escalation_ack'
+  | 'coordinator_message';
 
 export interface Notification {
   readonly id: string;
