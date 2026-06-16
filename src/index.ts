@@ -16,3 +16,6 @@ export * from './engagement/action-service';
 export * from './engagement/nudge-service';
 export * from './engagement/checkin-service';
 export * from './engagement/outcome-service';
+export * from './safety/checkin-red-flag';
+export * from './safety/checkin-summariser';
+export * from './safety/escalation-router';
