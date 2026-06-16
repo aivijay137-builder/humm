@@ -28,6 +28,7 @@ export function createPlanDelta(input: PlanDeltaInput): PlanDeltaResult {
 
   const { carePlan: basePlan } = assemblePlan(
     { member, profile },
+    // assemblePlan requires mutable array; spread prevents mutation of input
     [...allModules],
     auditLog,
   );

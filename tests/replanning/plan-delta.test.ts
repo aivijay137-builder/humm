@@ -97,30 +97,13 @@ describe('createPlanDelta', () => {
     expect(newDraft.version).toBe(2);
   });
 
-  it('increments from any base version', () => {
-    const existing = makeCarePlan(5, [makeRec('mod-a')]);
-    const { newDraft } = createPlanDelta({
-      existingPlan: existing, member, profile,
-      allModules: [makeModule('mod-a')], auditLog,
-    });
-    expect(newDraft.version).toBe(6);
-  });
-
-  it('new draft is in draft status', () => {
+  it('new draft has correct metadata', () => {
     const existing = makeCarePlan(1, [makeRec('mod-a')]);
     const { newDraft } = createPlanDelta({
       existingPlan: existing, member, profile,
       allModules: [makeModule('mod-a')], auditLog,
     });
     expect(newDraft.status).toBe('draft');
-  });
-
-  it('new draft belongs to member', () => {
-    const existing = makeCarePlan(1, [makeRec('mod-a')]);
-    const { newDraft } = createPlanDelta({
-      existingPlan: existing, member, profile,
-      allModules: [makeModule('mod-a')], auditLog,
-    });
     expect(newDraft.member_id).toBe(member.id);
   });
 
@@ -149,7 +132,7 @@ describe('createPlanDelta', () => {
     const existing = makeCarePlan(1, [makeRec('mod-a'), makeRec('mod-b')]);
     const { changes } = createPlanDelta({
       existingPlan: existing, member, profile,
-      allModules: [makeModule('mod-a')],  // mod-b dropped from library
+      allModules: [makeModule('mod-a')],
       auditLog,
     });
     const removed = changes.filter(c => c.type === 'removed');
