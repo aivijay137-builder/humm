@@ -162,7 +162,8 @@ export type NotificationType =
   | 'milestone'
   | 'escalation_created'
   | 'escalation_ack'
-  | 'coordinator_message';
+  | 'coordinator_message'
+  | 'plan_updated';
 
 export interface Notification {
   readonly id: string;
